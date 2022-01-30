@@ -1,12 +1,17 @@
 <?php
 session_start();
 require './config.php';
-if (isset($_POST["submitbtn"])) {
-    $Pname = $_POST["Pname"];
+$seatsCheck = true;
+// $required;
+if (isset($_POST["submitCustomerData"])) {
+    $customerName = $_POST["customerName"];
+    $customerPhone = $_POST["customerPhone"];
+    $customerEmail = $_POST["customerEmail"];
+    $seatsRequired = intval($_POST['seats']);
+    $seatType = $_POST['seatType'];
+    $busid = $_GET["busid"];
     $source = $_GET["Source"];
     $destination = $_GET["destination"];
-    $seatsRequired = $_GET["seatsRequired"];
-    $busid = $_GET["busid"];
     $selectdata = "SELECT * FROM busdetails  WHERE BusID ='$busid'";
 
     $result = mysqli_query($databasekey, $selectdata);
@@ -21,8 +26,8 @@ if (isset($_POST["submitbtn"])) {
                 date_default_timezone_set("Asia/kolkata");
                 $bookingdate = date('d-m-y');
                 $insertdata = "insert into bookinginfo
-             (passengername, BusID, seats, bookingdate, source, destination) values
-             ('$Pname' ,'$busid','$seatsRequired', '$bookingdate', ' $source' ,'$destination')";
+             (passengername, phone, email, BusID, seats, bookingdate, source, destination, seatType) values
+             ('$customerName', '$customerPhone', '$customerEmail' ,'$busid','$seatsRequired', '$bookingdate', ' $source' ,'$destination', '$seatType')";
                 $result = mysqli_query($databasekey, $insertdata);
                 if ($result == true) {
                     echo "booking confirmed";
@@ -62,6 +67,10 @@ if (!empty($_GET["busid123"])) {
         }
     }
 }
+if (isset($_POST["seatsSearch"])) {
+    $seatsCheck = false;
+    $_SESSION["seatsRequired"] = $_POST["seatsRequired"];
+}
 ?>
 
 <!DOCTYPE html>
@@ -75,10 +84,32 @@ if (!empty($_GET["busid123"])) {
 </head>
 
 <body>
-    <form method="POST">
-        <input type="text" name="Pname" placeholder="enter passenger name">
-        <input type="submit" name="submitbtn">
-    </form>
+    <?php
+    if ($seatsCheck) {
+    ?>
+        <form method="POST">
+            <input type="number" name="seatsRequired" placeholder="Enter Number of Seats Required">
+            <input type="submit" name="seatsSearch">
+        </form>
+    <?php
+    } else {
+    ?>
+        <form method="POST">
+            <input type="text" name="customerName" placeholder="Enter Customer Name">
+            <input type="number" name="customerPhone" placeholder="Enter Customer Phone">
+            <input type="email" name="customerEmail" placeholder="Enter Customer Email">
+            <input type="text" value="<?php echo $_SESSION["seatsRequired"] ?>" hidden name="seats">
+            <input type="radio" id="upper" name="seatType" value="UPPER" checked>
+            <label for="upper">UPPER</label><br>
+            <input type="radio" id="lower" name="seatType" value="LOWER">
+            <label for="lower">LOWER</label><br>
+
+            <input type="submit" name="submitCustomerData">
+        </form>
+    <?php
+    }
+    ?>
+
 </body>
 
 </html>

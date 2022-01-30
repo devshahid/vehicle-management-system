@@ -4,10 +4,12 @@ if (isset($_POST["submitbtn"])) {
     $phonenumber = $_POST["phonenumber"];
     $staffemail = $_POST["useremail"];
     $staffid = $_POST["staffid"];
+    $staffAdd = $_POST["staffAdd"];
+    $staffDes = $_POST["staffDes"];
     require './config.php';
     $insertdata = "insert into staffdetails
-    (staffid, staffname, staffphone, staffemail) values
-    ('$staffid', '$staffname', '$phonenumber', '$staffemail')";
+    (staffid, staffname, staffphone, staffemail, staffaddress, staffdesignation) values
+    ('$staffid', '$staffname', '$phonenumber', '$staffemail', '$staffAdd', '$staffDes')";
     $result = mysqli_query($databasekey, $insertdata);
     if ($result == true) {
         echo "details inserted";
@@ -16,8 +18,6 @@ if (isset($_POST["submitbtn"])) {
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,11 +32,13 @@ if (isset($_POST["submitbtn"])) {
     <h1><?php require('./admindashboard.php') ?></h1>
 
     <form method="POST">
-        <input type="text" name="staffname" placeholder="enter staff name" />
-        <input type="number" name="phonenumber" placeholder="enter phone number" />
-        <input type="email" name="useremail" placeholder=" enter email id" />
-        <input type="number" name="staffid" placeholder="enter staffid " />
-        <input type="submit" name="submitbtn" value="add staff information" />
+        <input type="number" name="staffid" placeholder="Enter Staff ID" />
+        <input type="text" name="staffname" placeholder="Enter Staff Name" />
+        <input type="number" name="phonenumber" placeholder="Enter Staff Phone Number" />
+        <input type="email" name="useremail" placeholder="Enter Staff Email" />
+        <input type="text" name="staffAdd" placeholder=" Enter Staff Address" />
+        <input type="text" name="staffDes" placeholder="Enter Staff Designation" />
+        <input type="submit" name="submitbtn" value="Add Staff Information" />
     </form>
 </body>
 

@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <button><a href="./addstaffdetails.php">add staff details</a></button>
-    <button><a href="./addbusdetails.php">add bus details</a> </button>
-    <button><a href="./addbusroute.php">add bus route</a></button>
-    <button><a href="./booktickets.php">book tickets</a></button>
-    <button><a href="./bookinghistory.php">booking history</a></button>
-    <button><a href="./verifiedtickets.php">verified tickets</a></button>
-    <button><a href="./staffinfo.php">staff info</a></button>
-    <button><a href="./businfo.php">bus info</a></button>
+    <button><a href="./addstaffdetails.php">Add Staff Details</a></button>
+    <button><a href="./addbusdetails.php">Add Bus Details</a> </button>
+    <button><a href="./addbusroute.php">Add Bus Route</a></button>
+    <button><a href="./booktickets.php">Book Tickets</a></button>
+    <button><a href="./bookinghistory.php">Booking History</a></button>
+    <button><a href="./verifiedtickets.php">Verified Tickets</a></button>
+    <button><a href="./staffinfo.php">Staff info</a></button>
+    <button><a href="./businfo.php">Bus info</a></button>
     <button><a href="./logout.php">Log Out</a></button>
 
 </body>

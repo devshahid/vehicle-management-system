@@ -33,7 +33,6 @@ if (mysqli_num_rows($result) > 0) {
 if (isset($_POST["searchbus"])) {
     $source = $_POST["source"];
     $destination = $_POST["destination"];
-    $seatsRequired = $_POST["seatsRequired"];
     $searchBus = "SELECT * from routedetails WHERE busroute regexp '$source?' AND busroute regexp '$destination?'";
     $result = mysqli_query($databasekey, $searchBus);
     $avaialbleBus = array();
@@ -58,9 +57,7 @@ if (isset($_POST["searchbus"])) {
                     <td>" . $source . "</td>
                     <td>" . $destination . "</td>
                     <td>" . $fetch["leftseats"] . "</td>
-
-                    <td>" . $seatsRequired . "</td>
-                    <td><a href=confirmtickets.php?busid=" . $fetch["BusID"] . "&Source=" . $source . "&destination=" . $destination . "&seatsRequired=" . $seatsRequired . ">Book Ticket</a></td>
+                    <td><a href=confirmtickets.php?busid=" . $fetch["BusID"] . "&Source=" . $source . "&destination=" . $destination . ">Book Ticket</a></td>
                 </tr>";
             }
         }
@@ -84,6 +81,7 @@ if (isset($_POST["searchbus"])) {
     <h1><?php require('./admindashboard.php') ?></h1>
 
     <form method="POST">
+        <label>Source</label>
         <select name="source">
             <?php
             foreach ($citiesList as $value) {
@@ -91,6 +89,8 @@ if (isset($_POST["searchbus"])) {
             }
             ?>
         </select>
+        <label>Destination</label>
+
         <select name="destination">
             <?php
             foreach ($citiesList as $value) {
@@ -98,10 +98,9 @@ if (isset($_POST["searchbus"])) {
             }
             ?>
         </select>
-        <input type="number" name="seatsRequired" placeholder="number of seats required">
+        <!-- <input type="number" name="seatsRequired" placeholder="number of seats required"> -->
         <input type="submit" name="searchbus" value="search bus">
     </form>
-    <button><a href="./logout.php">logout</a></button>
     <?php
     if ($showTable == true) {
 
@@ -112,7 +111,6 @@ if (isset($_POST["searchbus"])) {
                 <th>Source</th>
                 <th>Destination</th>
                 <th>Available seats</th>
-                <th>Select No. of seats</th>
             </tr>
             " . $tableData . "
         </table>";
