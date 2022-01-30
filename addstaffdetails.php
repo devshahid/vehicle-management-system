@@ -1,4 +1,5 @@
 <?php
+$msg = "";
 if (isset($_POST["submitbtn"])) {
     $staffname = $_POST["staffname"];
     $phonenumber = $_POST["phonenumber"];
@@ -11,10 +12,10 @@ if (isset($_POST["submitbtn"])) {
     (staffid, staffname, staffphone, staffemail, staffaddress, staffdesignation) values
     ('$staffid', '$staffname', '$phonenumber', '$staffemail', '$staffAdd', '$staffDes')";
     $result = mysqli_query($databasekey, $insertdata);
-    if ($result == true) {
-        echo "details inserted";
+    if ($result) {
+        $msg = "Staff Information Added";
     } else {
-        echo "not inserted";
+        $msg = "Staff Information Not Added! Error..!";
     }
 }
 ?>
@@ -25,21 +26,27 @@ if (isset($_POST["submitbtn"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=<, initial-scale=1.0">
-    <title>add staff details</title>
+    <link rel="stylesheet" href="css/addStaffDetails.css">
+    <title>Add Staff Details</title>
 </head>
 
 <body>
-    <h1><?php require('./admindashboard.php') ?></h1>
-
-    <form method="POST">
-        <input type="number" name="staffid" placeholder="Enter Staff ID" />
-        <input type="text" name="staffname" placeholder="Enter Staff Name" />
-        <input type="number" name="phonenumber" placeholder="Enter Staff Phone Number" />
-        <input type="email" name="useremail" placeholder="Enter Staff Email" />
-        <input type="text" name="staffAdd" placeholder=" Enter Staff Address" />
-        <input type="text" name="staffDes" placeholder="Enter Staff Designation" />
-        <input type="submit" name="submitbtn" value="Add Staff Information" />
-    </form>
+    <?php require('./navbar.php') ?>
+    <div class="mainContent">
+        <div class="formContent">
+            <form method="POST">
+                <p><?php echo !empty($msg) ?  $msg : "";  ?></p>
+                <input type="number" name="staffid" placeholder="Enter Staff ID" required />
+                <input type="text" name="staffname" placeholder="Enter Staff Name" required />
+                <input type="number" name="phonenumber" placeholder="Enter Staff Phone Number" required />
+                <input type="email" name="useremail" placeholder="Enter Staff Email" required />
+                <input type="text" name="staffAdd" placeholder=" Enter Staff Address" required />
+                <input type="text" name="staffDes" placeholder="Enter Staff Designation" required />
+                <input type="submit" name="submitbtn" value="Add Staff Information" />
+                <button class="signUpBtn"><a href="./admindashboard.php">ADMIN DASHBOARD</a></button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

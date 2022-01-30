@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+/* login page end */
+.mainContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  background-image: linear-gradient(
+      45deg,
+      rgba(93, 94, 78, 0.62),
+      rgba(117, 69, 172, 0.3)
+    ),
+    url("../images/bus-bg.jpg");
+  background-size: cover;
+}
+
+.formContent {
+  background-color: rgba(61, 38, 38, 0.5);
+  width: 568px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+.mainContent h1 {
+  text-align: center;
+  padding: 10px 8px;
+}
+.formContent form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 20px;
+}
+
+.formContent form input,
+.formContent .signUpBtn {
+  padding: 10px 20px;
+  margin: 15px 0;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+.formContent .signUpBtn a {
+  text-transform: uppercase;
+  color: #000000;
+}
+.formContent p {
+  padding: 10px 20px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 18px;
+}
+.formContent .errorMsg {
+  color: red;
+}
+/* login page end */

@@ -13,8 +13,8 @@ if (!empty($_GET["staffId"])) {
         $query = "DELETE FROM staffdetails WHERE staffid='$staffID'";
         $result = mysqli_query($databasekey, $query);
         if ($result) {
-            $msg = "deleted";
-            $redirect = true;
+            $actionMsg = "Information Removed Successfully";
+            header("location: staffinfo.php?actionMsg=" . $actionMsg);
         }
     }
 }
@@ -30,8 +30,8 @@ if (isset($_POST["changeData"])) {
     staffEmail= '$staffEmail', staffaddress='$staffAdd', staffdesignation='$staffDes' WHERE staffid= '$staffID'";
     $result = mysqli_query($databasekey, $query);
     if ($result) {
-        $msg = "updated";
-        $redirect = true;
+        $actionMsg = "Staff Details Updated";
+        header("location: staffinfo.php?actionMsg=" . $actionMsg);
     }
 }
 ?>
@@ -43,29 +43,32 @@ if (isset($_POST["changeData"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/updateStaff.css">
     <title>Update Details</title>
 </head>
 
 <body>
-    <?php
-    if ($redirect) {
-        header("location: staffinfo.php?msg=" . $msg);
-    }
-    ?>
-    <form method="POST">
-        <label>Name</label>
-        <input type="text" name="staffName" placeholder="Enter Staff Name" value=<?php echo $fetch['staffName'] ?>>
-        <label>Phone</label>
-        <input type="text" name="staffPhone" placeholder="Enter Staff Phone" value=<?php echo $fetch['staffPhone'] ?>>
-        <label>Email</label>
-        <input type="text" name="staffEmail" placeholder="Enter Staff Email" value=<?php echo $fetch['staffEmail'] ?>>
-        <label>Address</label>
-        <input type="text" name="staffAdd" placeholder="Enter Staff Address" value=<?php echo $fetch['staffaddress'] ?>>
-        <label>Designation</label>
-        <input type="text" name="staffDes" placeholder="Enter Staff Designation" value=<?php echo $fetch['staffdesignation'] ?>>
-        <input type="submit" value="Update Details" name="changeData">
-        <a href="staffinfo.php">Cancle</a>
-    </form>
+    <?php require('./navbar.php') ?>
+
+    <div class="mainContent">
+        <div class="formContent">
+            <?php
+            if ($redirect) {
+                header("location: staffinfo.php?msg=" . $msg);
+            }
+            ?>
+            <form method="POST">
+                <input type="text" name="staffName" placeholder="Enter Staff Name" value='<?php echo $fetch["staffName"] ?>'>
+                <input type="number" name="staffPhone" placeholder="Enter Staff Phone" value='<?php echo $fetch['staffPhone'] ?>'>
+                <input type="email" name="staffEmail" placeholder="Enter Staff Email" value='<?php echo $fetch['staffEmail'] ?>'>
+                <input type="text" name="staffAdd" placeholder="Enter Staff Address" value='<?php echo $fetch['staffaddress'] ?>'>
+                <input type="text" name="staffDes" placeholder="Enter Staff Designation" value='<?php echo $fetch['staffdesignation'] ?>'>
+                <input type="submit" value="UPDATE" name="changeData">
+                <button class="signUpBtn"><a href="./staffinfo.php">CANCLE</a></button>
+                <button class="signUpBtn"><a href="./admindashboard.php">ADMIN DASHBOARD</a></button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

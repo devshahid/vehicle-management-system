@@ -5,20 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>admindashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Admin Dashboard</title>
 </head>
 
 <body>
-    <button><a href="./addstaffdetails.php">Add Staff Details</a></button>
-    <button><a href="./addbusdetails.php">Add Bus Details</a> </button>
-    <button><a href="./addbusroute.php">Add Bus Route</a></button>
-    <button><a href="./booktickets.php">Book Tickets</a></button>
-    <button><a href="./bookinghistory.php">Booking History</a></button>
-    <button><a href="./verifiedtickets.php">Verified Tickets</a></button>
-    <button><a href="./staffinfo.php">Staff info</a></button>
-    <button><a href="./businfo.php">Bus info</a></button>
-    <button><a href="./logout.php">Log Out</a></button>
-
+    <div class="adminDashboard">
+        <?php require('./navbar.php') ?>
+        <div class="adminBody">
+            <h1>WELCOME ADMIN!!</h1>
+            <p>Choose Actions</p>
+        </div>
+    </div>
 </body>
 
 </html>

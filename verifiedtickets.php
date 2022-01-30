@@ -1,6 +1,7 @@
 <?php
 require './config.php';
-$selectdata = "SELECT * from bookinginfo where travelled ='no'";
+$msg = "";
+$selectdata = "SELECT * from bookinginfo WHERE travelled = 'no'";
 $result = mysqli_query($databasekey, $selectdata);
 $tabledata = "";
 if (mysqli_num_rows($result) > 0) {
@@ -13,20 +14,18 @@ if (mysqli_num_rows($result) > 0) {
      <td>" . $fetch["source"] . "</td>
      <td>" . $fetch["destination"] . "</td>
      <td>" . $fetch["passengername"] . "</td>
-     <td><button><a href=collected.php?busid="  . $fetch["busid"] . "&seats=" . $fetch["seats"] . "&bookingdate=" . $fetch["bookingdate"] . "&passengername=" . urlencode($fetch["passengername"]) .  " >verified tickets</a></button></td>
+     <td class=verifyIcon><a href=collected.php?busid="  . $fetch["busid"] . "&seats=" . $fetch["seats"] . "&bookingdate=" . $fetch["bookingdate"] . "&passengername=" . urlencode($fetch["passengername"]) .  " ><i class=icon-check-sign></i></a></td>
      </tr>";
     }
 }
 if (!empty($_GET["msg"])) {
     if ($_GET["msg"] == "sucess") {
-        echo "ticket collected";
+        $msg =  "Ticket Collected";
     } else {
-        echo "ticket not collected";
+        $msg = "Ticket Not Collected";
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,31 +33,42 @@ if (!empty($_GET["msg"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>verified tickets</title>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/tables.css">
+    <title>Verify Tickets</title>
 </head>
 
 <body>
-    <h1><?php require('./admindashboard.php') ?></h1>
-
+    <?php require('./navbar.php') ?>
+    <div class="errorTitleDisplay">
+        <h1><?php echo !empty($msg) ? $msg : "" ?></h1>
+    </div>
     <?php
     if (!empty($tabledata)) {
-        echo "<table> 
-      <tr> 
-      <th> busid  </th>
-      <th> seats </th>
-      <th> bookingdate </th>
-      <th>  source </th>
-      <th> destination </th>
-      <th>  passengername </th>
-      </tr>" . $tabledata . "
-      </table>";
-    } else {
-        echo "data not found";
-    }
-
-
     ?>
-
+        <table id=mainTable>
+            <tr>
+                <th> BUS ID </th>
+                <th> SEATS </th>
+                <th> BOOKING DATE </th>
+                <th> SOURCE </th>
+                <th> DESTINATION </th>
+                <th> PASSENGER NAME </th>
+                <th class="verifyIcon"> VERIFY TICKETS </th>
+            </tr>
+            <?php echo $tabledata; ?>
+        </table>
+    <?php
+    } else { ?>
+        <div class="mainTableContent">
+            <div class="tableContent">
+                <h1>No Records Found</h1>
+            </div>
+        </div>
+    <?php
+    }
+    ?>
 </body>
 
 </html>

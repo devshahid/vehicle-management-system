@@ -2,7 +2,7 @@
 require './config.php';
 $selectdata = "SELECT * FROM routedetails";
 $result = mysqli_query($databasekey, $selectdata);
-// $citieslist=array();
+$msg = "";
 $showTable = false;
 $displayerror = false;
 $list = "";
@@ -62,9 +62,12 @@ if (isset($_POST["searchbus"])) {
             }
         }
     } else {
-        $noresult = "bus not available";
+        $noresult = "BUS NOT AVAILABLE";
         $displayerror = true;
     }
+}
+if (!empty($_GET['msg'])) {
+    $msg = $_GET['msg'];
 }
 ?>
 <!DOCTYPE html>
@@ -74,52 +77,63 @@ if (isset($_POST["searchbus"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ticket booking</title>
+    <link rel="stylesheet" href="css/bookstyle.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <title>Bbooking Tickets</title>
 </head>
 
 <body>
-    <h1><?php require('./admindashboard.php') ?></h1>
+    <?php require('./navbar.php') ?>
+    <div class="mainContent">
+        <div class="formContent">
+            <form method="POST">
+                <p><?php echo !empty($msg) ?  $msg : "";  ?></p>
+                <select name="source" class="selectOption">
+                    <?php
+                    echo "<option class=optionName value=" . NULL . ">  SOURCE  </option>";
+                    foreach ($citiesList as $value) {
+                        echo "<option class=optionName value=" . $value . "> " . $value . " </option>";
+                    }
+                    ?>
+                </select>
+                <select name="destination" class="selectOption">
+                    <?php
+                    echo "<option class=optionName value=" . NULL . ">  DESTINATION </option>";
 
-    <form method="POST">
-        <label>Source</label>
-        <select name="source">
-            <?php
-            foreach ($citiesList as $value) {
-                echo "<option value=" . $value . "> " . $value . " </option>";
-            }
-            ?>
-        </select>
-        <label>Destination</label>
-
-        <select name="destination">
-            <?php
-            foreach ($citiesList as $value) {
-                echo "<option value=" . $value . "> " . $value . " </option>";
-            }
-            ?>
-        </select>
-        <!-- <input type="number" name="seatsRequired" placeholder="number of seats required"> -->
-        <input type="submit" name="searchbus" value="search bus">
-    </form>
-    <?php
-    if ($showTable == true) {
-
-        echo "<table>
-            <tr>
-                <th>Bus ID</th>
-                <th>Bus Name</th>
-                <th>Source</th>
-                <th>Destination</th>
-                <th>Available seats</th>
-            </tr>
-            " . $tableData . "
-        </table>";
-    } elseif ($displayerror == true) {
-        echo $noresult;
-    }
-    ?>
-
-
+                    foreach ($citiesList as $value) {
+                        echo "<option class=optionName value=" . $value . "> " . $value . " </option>";
+                    }
+                    ?>
+                </select>
+                <!-- <input type="number" name="seatsRequired" placeholder="number of seats required"> -->
+                <input type="submit" name="searchbus" value="SEARCH BUS">
+            </form>
+        </div>
+        <?php
+        if ($showTable == true) {
+        ?>
+            <table id="mainTable">
+                <tr>
+                    <th>Bus ID</th>
+                    <th>Bus Name</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Available seats</th>
+                    <th>Action</th>
+                </tr>
+                <?php echo $tableData ?>
+            </table>
+        <?php
+        } elseif ($displayerror == true) {
+        ?>
+            <div class="mainTableContent">
+                <div class="tableContent">
+                    <h1> <?php echo $noresult ?></h1>
+                </div>
+            </div><?php
+                }
+                    ?>
+    </div>
 </body>
 
 </html>

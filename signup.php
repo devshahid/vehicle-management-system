@@ -31,22 +31,7 @@ if (isset($_POST["signUpbtn"])) {
     echo "password not matched";
   }
 }
-
-
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,21 +39,26 @@ if (isset($_POST["signUpbtn"])) {
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>signup</title>
+  <link rel="stylesheet" href="css/signup.css">
+  <title>Sign Up Form</title>
 </head>
 
 <body>
-  <form method="POST">
-
-    <input type="text" name="fullname" id="" placeholder="full Name" />
-    <input type="number" name="phonenumber" id="" placeholder="number" />
-    <input type="email" name="UserEmail" id="" placeholder="Email" />
-    <input type="password" name="UserPassword" id="" placeholder="password" />
-    <input type="password" name="ConfirmPassword" id="" placeholder="confirm password" />
-    <input type="submit" name="signUpbtn" id="" />
-  </form>
-  <button> <a href="login.php">login</a></button>
-
+  <div class="mainContent">
+    <h1>VEHICLE MANAGEMENT SYSTEM</h1>
+    <div class="formContent">
+      <form method="POST">
+        <input type="text" name="fullname" placeholder="Enter Full Name" required />
+        <input type="number" name="phonenumber" placeholder="Enter Mobile number" required />
+        <input type="email" name="UserEmail" placeholder="Enter Email" required />
+        <input type="password" name="UserPassword" placeholder="Enter password" required />
+        <input type="password" name="ConfirmPassword" placeholder="Confirm password" required />
+        <input type="submit" name="signUpbtn" value="SIGN UP" />
+        <p>Already have account?Click below to Login</p>
+        <button class="signUpBtn"><a href="login.php">login</a></button>
+      </form>
+    </div>
+  </div>
 </body>
 
 </html>

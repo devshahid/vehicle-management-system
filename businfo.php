@@ -1,8 +1,6 @@
 <?php
-
 $showtable = false;
 require './config.php';
-
 $selectdata = "SELECT * FROM busdetails";
 $result = mysqli_query($databasekey, $selectdata);
 if (mysqli_num_rows($result) > 0) {
@@ -10,23 +8,16 @@ if (mysqli_num_rows($result) > 0) {
     $rows = "";
     while ($fetch = mysqli_fetch_assoc($result)) {
         $rows = $rows . "<tr>
-        
-
         <td>" . $fetch["BusID"] . "</td>
         <td>" . $fetch["BusOperator"] . "</td>
         <td>" . $fetch["BusName"] . "</td>
         <td>" . $fetch["operatorname"] . "</td>
         <td>" . $fetch["seats"] . "</td>
-        <td>" . $fetch["leftseats"] . "</td>
-
-
-        
+        <td>" . $fetch["leftseats"] . "</td>      
         </tr>";
     }
 }
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,37 +25,38 @@ if (mysqli_num_rows($result) > 0) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>bus info</title>
+    <link rel="stylesheet" href="css/tables.css">
+    <title>Bus Info</title>
 </head>
 
 <body>
-    <h1><?php require('./admindashboard.php') ?></h1>
-
+    <?php require('./navbar.php') ?>
     <?php
     if ($showtable == true) {
-        echo "<table>
-    <tr>
-    <th> bus Id </th>
-    <th> staff Id </th> 
-
-     <th> bus Name </th>
-     <th> staff name </th>
-     <th>  total seats </th>
-     <th>  available seats </th>
-
-    </tr>
-    " . $rows . "
-    </table>";
+    ?>
+        <table id=mainTable>
+            <tr>
+                <th> BUS ID </th>
+                <th> STAFF ID </th>
+                <th> BUS NAME </th>
+                <th> STAFF NAME </th>
+                <th> TOTAL SEATS </th>
+                <th> AVAILABLE SEATS </th>
+            </tr>
+            <?php echo $rows ?>
+        </table>
+    <?php
     } else {
-        echo "no data found";
+    ?>
+        <div class="mainTableContent">
+            <div class="tableContent">
+                <h1>No Records Found</h1>
+            </div>
+        </div>
+    <?php
     }
 
-
-
     ?>
-
-
-
 </body>
 
 </html>
